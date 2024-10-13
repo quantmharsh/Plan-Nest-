@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react'
 import ProjectHeader from '../ProjectHeader';
 
@@ -16,6 +17,7 @@ const Project = ({params}:Props) => {
   return (
     <div>
      <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab}/>  
+       
     </div>
   )
 }

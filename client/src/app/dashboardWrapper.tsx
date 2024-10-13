@@ -32,6 +32,7 @@ useEffect(() => {
       
         {/* all main , child components */}
        <Navbar/>
+       <div>  {children}</div>
        </main>
     </div>
   )
