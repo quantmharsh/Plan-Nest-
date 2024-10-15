@@ -74,6 +74,7 @@ type TabButtonProps = {
   activeTab: string;
 };
 
+
 const TabButton = ({ name, icon, setActiveTab, activeTab }: TabButtonProps) => {
   const isActive = activeTab === name;
 
