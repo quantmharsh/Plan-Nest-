@@ -3,7 +3,7 @@ import {
   CreateApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
-
+ 
 export interface Project {
   id: number;
   name: string;
@@ -117,6 +117,7 @@ export const api = createApi({
       
     }),
     createTask: build.mutation<Task, Partial<Task>>({
+      
       query: (task) => ({
         url: "tasks",
         method: "POST",
@@ -136,4 +137,4 @@ export const api = createApi({
   }),
 });
 
-export const {useGetProjectsQuery , useCreateProjectMutation , useGetTasksQuery , useCreateTaskMutation , useUpdateTaskStatusMutation} = api;
+export const {useGetProjectsQuery ,   useCreateProjectMutation , useGetTasksQuery , useCreateTaskMutation , useUpdateTaskStatusMutation} = api;
