@@ -8,6 +8,7 @@ import projectRoutes from "./routes/projectRoutes";
 import taskRoutes from "./routes/taskRoutes";
 import searchRoutes from "./routes/searchRoutes";
 import userRoutes from "./routes/userRoutes";
+import teamRoutes from "./routes/teamRoutes";
 // Route Imports
 
 // Configurations
@@ -29,5 +30,6 @@ app.use('/projects',projectRoutes);
 app.use("/tasks" , taskRoutes);
 app.use("/search" ,searchRoutes);
 app.use("/users",userRoutes);
+app.use("/teams", teamRoutes);
 const port =process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}`))
