@@ -57,7 +57,7 @@ const Home = (props: Props) => {
             </div>
         )
     }
-    //Priority counts for each project
+    //Priority counts for  project
     const priorityCount = tasks.reduce(
         (acc: Record<string, number>, task: Task) => {
             const { priority } = task;
