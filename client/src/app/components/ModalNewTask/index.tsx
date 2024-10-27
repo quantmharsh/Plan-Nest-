@@ -44,12 +44,12 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
       dueDate: formattedDueDate,
       authorUserId: parseInt(authorUserId),
       assignedUserId: parseInt(assignedUserId),
-      projectId: Number(id),
+      projectId: id!=null ?Number(id):Number(projectId), 
     });
   };
-
+  
   const isFormValid = () => {
-    return title && authorUserId ;
+    return title && authorUserId && !(id!=null||projectId) ;
   };
 
   const selectStyles =

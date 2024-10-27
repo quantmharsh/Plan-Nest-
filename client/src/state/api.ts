@@ -154,4 +154,4 @@ export const api = createApi({
   }),
 });
 
-export const {useGetProjectsQuery ,  useGetUsersQuery, useGetTeamsQuery , useCreateProjectMutation , useGetTasksQuery , useCreateTaskMutation , useUpdateTaskStatusMutation , useSearchQuery} = api;
+export const {useGetProjectsQuery ,  useGetUsersQuery, useGetTeamsQuery , useCreateProjectMutation , useGetTasksQuery , useCreateTaskMutation , useGetTasksByUserQuery,useUpdateTaskStatusMutation , useSearchQuery} = api;
