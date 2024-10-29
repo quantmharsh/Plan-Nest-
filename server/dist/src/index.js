@@ -33,5 +33,7 @@ app.use("/tasks", taskRoutes_1.default);
 app.use("/search", searchRoutes_1.default);
 app.use("/users", userRoutes_1.default);
 app.use("/teams", teamRoutes_1.default);
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server started on port ${port}`));
+//Converting to Number  to get rid of typescript error because using AWS for deployment 
+const port = Number(process.env.PORT) || 3000;
+//0.0.0.0 is to solve EC2 network   issue. 
+app.listen(port, "0.0.0.0", () => console.log(`Server started on port ${port}`));
