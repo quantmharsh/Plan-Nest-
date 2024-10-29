@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTask = exports.createTask = exports.getTasks = void 0;
+exports.getUserTasks = exports.updateTask = exports.createTask = exports.getTasks = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const getTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -24,18 +24,22 @@ const getTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 author: true,
                 assignee: true,
                 comments: true,
-                attachments: true
-            }
+                attachments: true,
+            },
         });
         res.json(tasks);
     }
     catch (error) {
-        res.status(500).json({ message: `Something went wrong while getting tasks ${error.message}` });
+        res
+            .status(500)
+            .json({
+            message: `Something went wrong while getting tasks ${error.message}`,
+        });
     }
 });
 exports.getTasks = getTasks;
 const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, description, status, priority, tags, startDate, dueDate, points, projectId, authorUserId, assignedUserId } = req.body;
+    const { title, description, status, priority, tags, startDate, dueDate, points, projectId, authorUserId, assignedUserId, } = req.body;
     try {
         // project is a table that we have made in schema.prisma
         const newTask = yield prisma.task.create({
@@ -50,13 +54,17 @@ const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 points,
                 projectId,
                 authorUserId,
-                assignedUserId
-            }
+                assignedUserId,
+            },
         });
         res.status(201).json(newTask);
     }
     catch (error) {
-        res.status(500).json({ message: `Something went wrong while Creating Task ${error.message}` });
+        res
+            .status(500)
+            .json({
+            message: `Something went wrong while Creating Task ${error.message}`,
+        });
     }
 });
 exports.createTask = createTask;
@@ -67,16 +75,49 @@ const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         // project is a table that we have made in schema.prisma
         const updatedTask = yield prisma.task.update({
             where: {
-                id: Number(taskId)
+                id: Number(taskId),
             },
             data: {
-                status: status
-            }
+                status: status,
+            },
         });
         res.json(updatedTask);
     }
     catch (error) {
-        res.status(500).json({ message: `Something went wrong while Updating tasks ${error.message}` });
+        res
+            .status(500)
+            .json({
+            message: `Something went wrong while Updating tasks ${error.message}`,
+        });
     }
 });
 exports.updateTask = updateTask;
+//get all the tasks for a logged in user which are in multiple projects
+//so that we can see all the tasks for the user in priority order
+const getUserTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    try {
+        // project is a table that we have made in schema.prisma
+        const tasks = yield prisma.task.findMany({
+            where: {
+                OR: [
+                    { authorUserId: Number(userId) },
+                    { assignedUserId: Number(userId) },
+                ],
+            },
+            include: {
+                author: true,
+                assignee: true,
+            },
+        });
+        res.json(tasks);
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({
+            message: `Something went wrong while getting tasks for logged in user  ${error.message}`,
+        });
+    }
+});
+exports.getUserTasks = getUserTasks;
