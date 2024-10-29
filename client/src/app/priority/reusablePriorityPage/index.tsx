@@ -6,6 +6,7 @@ import { dataGridClassNames, dataGridSxStyles } from "@/app/lib/utils";
 import { useAppSelector } from "@/app/redux";
 import { Priority, Task, useGetTasksByUserQuery } from "@/state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { fi } from "date-fns/locale";
 import React, { useState } from "react";
 
 type Props = {
@@ -79,6 +80,7 @@ const ReusablePriorityPage = ({ priority }: Props) => {
     });
     const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
     const filteredTasks = tasks?.filter((task) => task.priority === priority);
+    console.log("Filtered Tasks for  Priority of type" , priority , "are" , filteredTasks);
     if (isTaskError) {
         return <div> Error occured while fetching tasks from database</div>;
     }
